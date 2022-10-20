@@ -1,5 +1,6 @@
 from typer import Exit, Option, Typer
 
+from .settings import get_settings
 from .utils import console, version
 
 # Allow invocation without subcommand so --version option does not produce an error
@@ -16,8 +17,14 @@ def version_callback(
 
 
 @interface.command()
-def hello():
-    console.print("Hello, World!")
+def config():
+    """Display configuration"""
+    settings = get_settings()
+    console.print(
+        {
+            "App data path": str(settings.user_data_dir),
+        },
+    )
 
 
 def cli():
